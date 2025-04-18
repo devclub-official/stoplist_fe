@@ -1,25 +1,40 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-
-const personaList = ['정인물', '나성광', '김철수', '박도연', '이하늘']; // 5글자 제한
+import {axiosInstance} from "@api/apiClient.ts";
 
 const SignUpPage = () => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
+    const [selectedPersonaId, setSelectedPersonaId] = useState<number | null>(null);
+    const [personaList, setPersonaList] = useState([]);
     const navigate = useNavigate();
 
     const handleSignUp = () => {
-        if (!id || !password || !selectedPersona) {
+        if (!id || !password || !selectedPersonaId) {
             alert('모든 항목을 입력해주세요.');
             return;
         }
-        window.localStorage.setItem('userId', id)
-        navigate('/home')
-
-        console.log('회원가입 정보', { id, password, persona: selectedPersona });
-        // TODO: API 호출 등 처리
+        axiosInstance.post('api/user/signup',{nickname:id, password:password, personaId:selectedPersonaId}).then(res => {
+            if(res.status === 200) {
+                window.localStorage.setItem('userId', res.data.userId);
+                navigate('/home');
+            } else {
+                alert(`${res.data.data}`);
+            }
+        });
     };
+
+    useEffect(() => {
+        axiosInstance.get('api/personalist').then(res => {
+            if(res.status === 200) {
+                console.log('res',res)
+                setPersonaList(res.data.data.personas);
+            } else {
+                alert(`${res.data.data}`);
+            }
+        });
+
+    },[])
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-white px-6">
@@ -44,18 +59,18 @@ const SignUpPage = () => {
                 <div>
                     <p className="mb-2 text-sm font-semibold text-gray-600">페르소나</p>
                     <div className="flex flex-wrap gap-2">
-                        {personaList.map((name) => (
+                        {personaList.map((persona) => (
                             <button
-                                key={name}
+                                key={persona.id}
                                 type="button"
-                                onClick={() => setSelectedPersona(name)}
+                                onClick={() => setSelectedPersonaId(persona.id)}
                                 className={`rounded-full px-4 py-2 text-sm ${
-                                    selectedPersona === name
+                                    selectedPersonaId === persona.id
                                         ? 'bg-coral-600 text-white'
                                         : 'bg-coral-100 text-gray-600'
                                 }`}
                             >
-                                {name}
+                                {persona.name}
                             </button>
                         ))}
                     </div>
