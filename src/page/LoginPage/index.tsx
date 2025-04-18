@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {useNavigate} from "react-router-dom";
+import {axiosInstance} from "@api/apiClient.ts";
 
 const LoginPage = () => {
     const [id, setId] = useState('');
@@ -7,9 +8,10 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        console.log('로그인 시도:', { id, password });
+        // TODO api 연결 필요
+        axiosInstance.post('/user/login',{nickname:id, password:password}).then(res => {console.log('res',res)});
+        window.localStorage.setItem('userId', id)
         navigate('/home');
-        // 로그인 로직 구현
     };
 
     return (

@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import App from "./App";
 import ErrorPage from "./ErrorPage";
+import ProtectedRoute from "@app/ProtectedRoute.tsx";
 
 const LoginPage = lazy(() => import("@/page/LoginPage"));
 const SignUpPage = lazy(() => import("@/page/SignUpPage"));
@@ -11,18 +11,26 @@ const MyPage = lazy(() => import("@/page/MyPage"));
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    Component: () => <LoginPage />,
+    path: '/',
+    Component: () =>
+        localStorage.getItem('userId') ? (
+            (() => {
+              window.location.href = '/home';
+              return null;
+            })()
+        ) : (
+            <LoginPage />
+        ),
     errorElement: <ErrorPage />,
   },
   {
     path: "/signup",
-    Component: () => <SignUpPage />,
+    Component: SignUpPage,
     errorElement: <ErrorPage />,
   },
   {
     path: "/",
-    Component: App,
+    Component: ProtectedRoute,
     children: [
       {
         path: "/home",
