@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 interface Persona {
   id: number;
   name: string;
+  flag: boolean;
 }
 
 interface DropdownProps {

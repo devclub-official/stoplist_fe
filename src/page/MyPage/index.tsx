@@ -4,10 +4,10 @@ import ConfirmationModal from "./ConfirmationModal";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "@/api/apiClient";
 
-// 페르소나 타입 정의
 interface Persona {
   id: number;
   name: string;
+  flag: boolean;
 }
 
 function MyPage() {
@@ -17,33 +17,49 @@ function MyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempPersona, setTempPersona] = useState<Persona | null>(null);
   const [personas, setPersonas] = useState<Persona[]>([]);
+  const [nickname, setNickname] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    if (!userId) {
+      navigate("/", { replace: true });
+      return;
+    }
+
     axiosInstance
-      .get("api/personalist")
+      .get("/api/user/info", {
+        params: { userId: userId },
+      })
       .then((res) => {
-        console.log("res", res.data);
+        console.log("사용자 정보:", res.data);
         if (res.data.status === 200 && res.data.data.personas) {
-          setPersonas(res.data.data.personas);
-          // 초기값 설정 (첫 번째 페르소나 또는 기본값)
-          if (res.data.data.personas.length > 0) {
-            setSelectedPersona(res.data.data.personas[0]);
-            setTempPersona(res.data.data.personas[0]);
-          }
+          const fetchedPersonas = res.data.data.personas.map((p: any) => ({
+            id: p.personaId,
+            name: p.personaName,
+            flag: p.flag,
+          }));
+
+          setPersonas(fetchedPersonas);
+          setNickname(res.data.data.nickname);
+
+          const defaultPersona =
+            fetchedPersonas.find((p: Persona) => p.flag) || fetchedPersonas[0];
+          setSelectedPersona(defaultPersona);
+          setTempPersona(defaultPersona);
         }
       })
       .catch((error) => {
         console.error("페르소나 목록 불러오기 실패:", error);
+        alert("사용자 정보를 불러오는데 실패했습니다.");
       });
-  }, []);
+  }, [userId, navigate]);
 
   const handleToggleEdit = () => {
     if (isEditing) {
-      // 저장 버튼을 눌렀을 때
-      setTempPersona(selectedPersona); // 현재 선택된 페르소나를 임시 저장
-      setIsModalOpen(true); // 모달 오픈
+      setTempPersona(selectedPersona);
+      setIsModalOpen(true);
     } else {
-      // 페르소나 변경 버튼을 눌렀을 때
       setIsEditing(true);
     }
   };
@@ -56,16 +72,32 @@ function MyPage() {
   };
 
   const handleConfirm = () => {
-    // 모달에서 확인을 눌렀을 때의 로직
-    if (selectedPersona) {
+    if (selectedPersona && userId) {
+      setIsLoading(true);
       axiosInstance
-        .post("api/updatePersona", { personaId: selectedPersona.id })
+        .post("/api/persona", {
+          userId: userId,
+          personaId: selectedPersona.id,
+        })
         .then((res) => {
-          console.log("페르소나 업데이트 성공:", res);
+          console.log("페르소나 업데이트 성공:", res.data);
+          if (res.data.status === 200) {
+            const updatedPersonas = personas.map((p) => ({
+              ...p,
+              flag: p.id === selectedPersona.id,
+            }));
+            setPersonas(updatedPersonas);
+          } else {
+            setSelectedPersona(tempPersona);
+          }
         })
         .catch((error) => {
           console.error("페르소나 업데이트 실패:", error);
-          setSelectedPersona(tempPersona); // 실패 시 원래 선택으로 되돌리기
+          alert("페르소나 변경 중 오류가 발생했습니다.");
+          setSelectedPersona(tempPersona);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
 
@@ -74,22 +106,21 @@ function MyPage() {
   };
 
   const handleCancel = () => {
-    // 모달에서 취소를 눌렀을 때의 로직
     setIsModalOpen(false);
-    setIsEditing(false); // 에디트 모드도 취소
-    setSelectedPersona(tempPersona); // 선택을 이전 값으로 되돌리기
+    setIsEditing(false);
+    setSelectedPersona(tempPersona);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
-    navigate("/", { replace: true }); // 로그인 페이지로 이동
+    navigate("/", { replace: true });
   };
 
   return (
     <div className="pt-10 px-6 max-w-xl mx-auto">
       <div className="mb-10 text-center">
         <div className="text-2xl font-semibold">
-          <strong className="text-coral-600">howu</strong>님 환영합니다!
+          <strong className="text-coral-600">{nickname}</strong>님 환영합니다!
         </div>
       </div>
 
@@ -107,8 +138,9 @@ function MyPage() {
         <button
           className="bg-primary text-white text-sm mt-9 px-4 py-2 w-[120px] rounded-xl transition-transform active:scale-95"
           onClick={handleToggleEdit}
+          disabled={isLoading}
         >
-          {isEditing ? "저장" : "페르소나 변경"}
+          {isLoading ? "처리 중..." : isEditing ? "저장" : "페르소나 변경"}
         </button>
       </div>
 
@@ -126,6 +158,7 @@ function MyPage() {
         <button
           onClick={handleLogout}
           className="bg-coral-600 text-white text-sm px-6 py-2 rounded-xl shadow-sm transition-transform active:scale-95 hover:bg-coral-700"
+          disabled={isLoading}
         >
           로그아웃
         </button>
