@@ -1,4 +1,3 @@
-// src/page/BadgePage/index.tsx
 import developerBadge from "@/asset/badge/developer-badge.svg";
 import helchangBadge from "@/asset/badge/helchang-badge.svg";
 import ilzallerBadge from "@/asset/badge/ilzaller-badge.svg";

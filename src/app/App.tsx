@@ -2,6 +2,13 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import {Suspense} from "react";
 import LoadingPage from "@app/LoadingPage.tsx";
 
+import HomeIcon from "@/asset/home-icon.svg";
+import HomeIconWhite from "@/asset/home-icon-white.svg";
+import MypageIcon from "@/asset/mypage-icon.svg";
+import MypageIconWhite from "@/asset/mypage-icon-white.svg";
+import BadgeIcon from "@/asset/badge-icon.svg";
+import BadgeIconWhite from "@/asset/badge-icon-white.svg";
+
 function App() {
   const location = useLocation();
 
@@ -29,11 +36,7 @@ function App() {
           }`}
         >
           <img
-            src={
-              isActive("/mypage")
-                ? "/src/asset/mypage-icon-white.svg"
-                : "/src/asset/mypage-icon.svg"
-            }
+            src={isActive("/mypage") ? MypageIconWhite : MypageIcon}
             alt="마이페이지"
             className="w-5 h-5 mb-1"
           />
@@ -49,11 +52,7 @@ function App() {
           }`}
         >
           <img
-            src={
-              isActive("/home")
-                ? "/src/asset/home-icon-white.svg"
-                : "/src/asset/home-icon.svg"
-            }
+            src={isActive("/home") ? HomeIconWhite : HomeIcon}
             alt="홈"
             className="w-5 h-5 mb-1"
           />
@@ -69,11 +68,7 @@ function App() {
           }`}
         >
           <img
-            src={
-              isActive("/badges")
-                ? "/src/asset/badge-icon-white.svg"
-                : "/src/asset/badge-icon.svg"
-            }
+            src={isActive("/badges") ? BadgeIconWhite : BadgeIcon}
             alt="배지"
             className="w-5 h-5 mb-1"
           />

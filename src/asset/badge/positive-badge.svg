@@ -1,10 +1,22 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- 긍정 뱃지 -->
-  <circle cx="100" cy="100" r="90" fill="#FF7F50" />
-  <circle cx="100" cy="100" r="80" fill="#FF7F50" />
-  <circle cx="100" cy="100" r="40" fill="#fff" />
-  <path d="M60,100 C60,70 140,70 140,100 C140,140 60,140 60,100 Z" fill="#fff" />
-  <circle cx="80" cy="85" r="5" fill="#FF7F50" />
-  <circle cx="120" cy="85" r="5" fill="#FF7F50" />
-  <path d="M80,120 C93,130 107,130 120,120" stroke="#FF7F50" stroke-width="5" fill="none" />
+  <!-- 긍정 휘장 배경 -->
+  <path d="M100,10 L130,25 L160,40 L175,70 L190,100 L175,130 L160,160 L130,175 L100,190 L70,175 L40,160 L25,130 L10,100 L25,70 L40,40 L70,25 Z" fill="#FF7F50" />
+  <path d="M100,20 L125,33 L150,45 L163,70 L175,100 L163,130 L150,155 L125,167 L100,180 L75,167 L50,155 L38,130 L25,100 L38,70 L50,45 L75,33 Z" fill="#FF7F50" stroke="#fff" stroke-width="2" />
+  
+  <!-- 내부 원형 배경 -->
+  <circle cx="100" cy="100" r="55" fill="#fff" />
+  
+  <!-- 웃는 얼굴 아이콘 -->
+  <circle cx="100" cy="100" r="40" fill="#FF7F50" />
+  <circle cx="80" cy="85" r="6" fill="#fff" />
+  <circle cx="120" cy="85" r="6" fill="#fff" />
+  <path d="M75,115 C85,125 115,125 125,115" stroke="#fff" stroke-width="4" fill="none" />
+  
+  <!-- 빛나는 효과 -->
+  <path d="M100,40 L100,50 M100,150 L100,160 M40,100 L50,100 M150,100 L160,100" stroke="#fff" stroke-width="3" />
+  <path d="M60,60 L67,67 M140,60 L133,67 M60,140 L67,133 M140,140 L133,133" stroke="#fff" stroke-width="3" />
+  
+  <!-- 테두리 장식 -->
+  <path d="M100,10 L103,20 M100,190 L103,180 M10,100 L20,103 M190,100 L180,103" stroke="#fff" stroke-width="1" />
+  <path d="M40,40 L47,47 M160,40 L153,47 M40,160 L47,153 M160,160 L153,153" stroke="#fff" stroke-width="1" />
 </svg>

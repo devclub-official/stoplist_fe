@@ -1,8 +1,20 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- 헬창 뱃지 -->
-  <circle cx="100" cy="100" r="90" fill="#FF7F50" />
-  <circle cx="100" cy="100" r="80" fill="#FF7F50" />
-  <path d="M70,70 L70,130 M130,70 L130,130" stroke="#fff" stroke-width="10" />
-  <path d="M60,100 L140,100" stroke="#fff" stroke-width="10" />
-  <circle cx="100" cy="100" r="20" fill="#fff" />
+  <!-- 헬창 휘장 배경 -->
+  <path d="M100,10 L130,25 L160,40 L175,70 L190,100 L175,130 L160,160 L130,175 L100,190 L70,175 L40,160 L25,130 L10,100 L25,70 L40,40 L70,25 Z" fill="#FF7F50" />
+  <path d="M100,20 L125,33 L150,45 L163,70 L175,100 L163,130 L150,155 L125,167 L100,180 L75,167 L50,155 L38,130 L25,100 L38,70 L50,45 L75,33 Z" fill="#FF7F50" stroke="#fff" stroke-width="2" />
+  
+  <!-- 내부 원형 배경 -->
+  <circle cx="100" cy="100" r="55" fill="#fff" />
+  
+  <!-- 덤벨 아이콘 -->
+  <path d="M75,75 L75,125 M125,75 L125,125" stroke="#FF7F50" stroke-width="8" />
+  <path d="M65,100 L135,100" stroke="#FF7F50" stroke-width="8" />
+  <circle cx="75" cy="75" r="10" fill="#FF7F50" />
+  <circle cx="75" cy="125" r="10" fill="#FF7F50" />
+  <circle cx="125" cy="75" r="10" fill="#FF7F50" />
+  <circle cx="125" cy="125" r="10" fill="#FF7F50" />
+  
+  <!-- 테두리 장식 -->
+  <path d="M100,10 L103,20 M100,190 L103,180 M10,100 L20,103 M190,100 L180,103" stroke="#fff" stroke-width="1" />
+  <path d="M40,40 L47,47 M160,40 L153,47 M40,160 L47,153 M160,160 L153,153" stroke="#fff" stroke-width="1" />
 </svg>

@@ -1,7 +1,18 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- 개발자 뱃지 -->
-  <circle cx="100" cy="100" r="90" fill="#FF7F50" />
-  <circle cx="100" cy="100" r="80" fill="#FF7F50" />
-  <!-- 중앙에 배치된 코드 괄호 -->
-  <path d="M70,70 L45,100 L70,130 M130,70 L155,100 L130,130" stroke="#fff" stroke-width="8" fill="none" />
+  <!-- 개발자 휘장 배경 -->
+  <path d="M100,10 L130,25 L160,40 L175,70 L190,100 L175,130 L160,160 L130,175 L100,190 L70,175 L40,160 L25,130 L10,100 L25,70 L40,40 L70,25 Z" fill="#FF7F50" />
+  <path d="M100,20 L125,33 L150,45 L163,70 L175,100 L163,130 L150,155 L125,167 L100,180 L75,167 L50,155 L38,130 L25,100 L38,70 L50,45 L75,33 Z" fill="#FF7F50" stroke="#fff" stroke-width="2" />
+  
+  <!-- 내부 원형 배경 -->
+  <circle cx="100" cy="100" r="55" fill="#fff" />
+  
+  <!-- 코드 괄호 아이콘 -->
+  <path d="M70,65 L50,100 L70,135 M130,65 L150,100 L130,135" stroke="#FF7F50" stroke-width="8" fill="none" />
+  
+  <!-- 중앙 기호 -->
+  <path d="M85,85 L115,115 M85,115 L115,85" stroke="#FF7F50" stroke-width="4" />
+  
+  <!-- 테두리 장식 -->
+  <path d="M100,10 L103,20 M100,190 L103,180 M10,100 L20,103 M190,100 L180,103" stroke="#fff" stroke-width="1" />
+  <path d="M40,40 L47,47 M160,40 L153,47 M40,160 L47,153 M160,160 L153,153" stroke="#fff" stroke-width="1" />
 </svg>
