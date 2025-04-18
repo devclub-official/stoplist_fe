@@ -35,16 +35,16 @@ function App() {
         </Link>
 
         <Link
-          to="/"
+          to="/home"
           className={`flex flex-col items-center justify-center rounded-lg w-20 h-12 ${
-            isActive("/")
+            isActive("/home")
               ? "bg-coral-600 text-white"
               : "bg-white text-coral-600"
           }`}
         >
           <img
             src={
-              isActive("/")
+              isActive("/home")
                 ? "/src/asset/home-icon-white.svg"
                 : "/src/asset/home-icon.svg"
             }
