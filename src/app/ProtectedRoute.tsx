@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import App from './App';
+import App from "@app/App.tsx";
 
 const ProtectedRoute = () => {
     const userId = localStorage.getItem('userId');

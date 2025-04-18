@@ -8,6 +8,7 @@ const SignUpPage = lazy(() => import("@/page/SignUpPage"));
 const HomePage = lazy(() => import("@/page/HomePage"));
 const BadgePage = lazy(() => import("@/page/BadgePage"));
 const MyPage = lazy(() => import("@/page/MyPage"));
+const NotFoundPage = lazy(() => import('@/app/NotFoundPage'));
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
         path: "/mypage",
         Component: () => <MyPage />,
         errorElement: <ErrorPage />,
+      },
+      {
+        path: '*',
+        Component: NotFoundPage,
       },
     ],
   },
