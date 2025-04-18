@@ -8,10 +8,15 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        // TODO api 연결 필요
-        axiosInstance.post('/user/login',{nickname:id, password:password}).then(res => {console.log('res',res)});
-        window.localStorage.setItem('userId', id)
-        navigate('/home');
+        axiosInstance.post('api/user/login',{nickname:id, password:password}).then(res => {
+            if(res.status === 200) {
+                window.localStorage.setItem('userId', res.data.userId);
+                navigate('/home');
+            } else {
+                alert(`${res.data.data}`);
+            }
+        });
+
     };
 
     return (
@@ -41,7 +46,6 @@ const LoginPage = () => {
                 </button>
                 <button
                     className="text-sm text-coral-400 hover:underline"
-                    // onClick={() => alert('회원가입 페이지 이동')}
                     onClick={() => navigate('/signup')}
                 >
                     회원가입
