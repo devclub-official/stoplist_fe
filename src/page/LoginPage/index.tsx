@@ -8,6 +8,7 @@ const LoginPage = () => {
 
     const handleLogin = () => {
         console.log('로그인 시도:', { id, password });
+        navigate('/home');
         // 로그인 로직 구현
     };
 

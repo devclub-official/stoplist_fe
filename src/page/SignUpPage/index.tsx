@@ -15,7 +15,7 @@ const SignUpPage = () => {
             return;
         }
 
-        navigate('/')
+        navigate('/home')
 
         console.log('회원가입 정보', { id, password, persona: selectedPersona });
         // TODO: API 호출 등 처리
