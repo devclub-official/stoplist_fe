@@ -1,4 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
+import {Suspense} from "react";
+import LoadingPage from "@app/LoadingPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -11,7 +13,10 @@ function App() {
     <div className="flex flex-col h-screen">
       <h1 className="pt-4 text-center text-coral-600">StopList</h1>
       <main className="flex-1 overflow-auto pb-16">
-        <Outlet />
+          <Suspense fallback={<LoadingPage />}>
+            <Outlet />
+          </Suspense>
+
       </main>
 
       <nav className="fixed bottom-0 w-full bg-white border-t border-grey-20 h-16 flex justify-around items-center px-4 safe-area-inset-padding-bottom">

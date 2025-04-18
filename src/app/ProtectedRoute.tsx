@@ -1,8 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import App from "@app/App.tsx";
 
 const ProtectedRoute = () => {
     const userId = localStorage.getItem('userId');
-    return userId ? <Outlet /> : <Navigate to="/" replace />;
+    return userId ? <App /> : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoute;
