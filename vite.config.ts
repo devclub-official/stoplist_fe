@@ -7,7 +7,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    port: 3000
+    port: 3300
   },
   resolve: {
     alias: {
