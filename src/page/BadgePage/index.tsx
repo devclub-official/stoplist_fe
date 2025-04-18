@@ -27,7 +27,6 @@ function BadgePage() {
 
         axiosInstance.get(`api/badge/${userId}`).then(res => {
             if(res.status === 200) {
-                console.log('@@@@@@@',res)
                 setUserBadgeList(res.data.data);
             } else {
                 alert(`${res.data.data}`);
