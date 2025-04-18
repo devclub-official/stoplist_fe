@@ -14,7 +14,7 @@ const SignUpPage = () => {
             alert('모든 항목을 입력해주세요.');
             return;
         }
-
+        window.localStorage.setItem('userId', id)
         navigate('/home')
 
         console.log('회원가입 정보', { id, password, persona: selectedPersona });
@@ -31,14 +31,14 @@ const SignUpPage = () => {
                     placeholder="아이디"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
-                    className="rounded-lg bg-orange-50 px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
+                    className="rounded-lg bg-coral-100 px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
                 />
                 <input
                     type="password"
                     placeholder="비밀번호"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="rounded-lg bg-orange-50 px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
+                    className="rounded-lg bg-coral-100 px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
                 />
 
                 <div>
@@ -51,8 +51,8 @@ const SignUpPage = () => {
                                 onClick={() => setSelectedPersona(name)}
                                 className={`rounded-full px-4 py-2 text-sm ${
                                     selectedPersona === name
-                                        ? 'bg-orange-400 text-white'
-                                        : 'bg-orange-50 text-gray-600'
+                                        ? 'bg-coral-600 text-white'
+                                        : 'bg-coral-100 text-gray-600'
                                 }`}
                             >
                                 {name}
@@ -63,7 +63,7 @@ const SignUpPage = () => {
 
                 <button
                     onClick={handleSignUp}
-                    className="mt-4 rounded-full bg-orange-400 py-3 text-white hover:bg-orange-500"
+                    className="mt-4 rounded-full bg-coral-600 py-3 text-white hover:bg-coral-700"
                 >
                     등록
                 </button>
