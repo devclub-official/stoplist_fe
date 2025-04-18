@@ -113,7 +113,8 @@ function MyPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
-    navigate("/", { replace: true });
+    localStorage.removeItem("personaId");
+    navigate("/", { replace: true }); // 로그인 페이지로 이동
   };
 
   return (

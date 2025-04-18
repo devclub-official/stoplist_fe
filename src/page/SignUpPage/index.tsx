@@ -2,11 +2,16 @@ import {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {axiosInstance} from "@api/apiClient.ts";
 
+type PersonaListType = {
+    id: number,
+    name: string,
+}
+
 const SignUpPage = () => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [selectedPersonaId, setSelectedPersonaId] = useState<number | null>(null);
-    const [personaList, setPersonaList] = useState([]);
+    const [personaList, setPersonaList] = useState<PersonaListType[]>([]);
     const navigate = useNavigate();
 
     const handleSignUp = () => {
@@ -16,7 +21,9 @@ const SignUpPage = () => {
         }
         axiosInstance.post('api/user/signup',{nickname:id, password:password, personaId:selectedPersonaId}).then(res => {
             if(res.status === 200) {
-                window.localStorage.setItem('userId', res.data.userId);
+                console.log('res signup',res)
+                window.localStorage.setItem('userId', res.data.data.userId);
+                window.localStorage.setItem('personaId', res.data.data.personaId);
                 navigate('/home');
             } else {
                 alert(`${res.data.data}`);
