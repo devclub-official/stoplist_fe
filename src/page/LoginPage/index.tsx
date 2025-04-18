@@ -10,6 +10,12 @@ const LoginPage = () => {
     const handleLogin = () => {
         axiosInstance.post('api/user/login',{nickname:id, password:password}).then(res => {
             if(res.status === 200) {
+                if(res.data.status === 500) {
+                    setId('');
+                    setPassword('');
+                    alert(`${res.data.data}`);
+                    return;
+                }
                 window.localStorage.setItem('userId', res.data.data.userId);
                 window.localStorage.setItem('personaId', res.data.data.personaId);
                 navigate('/home');
