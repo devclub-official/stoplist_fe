@@ -1,26 +1,33 @@
+// Dropdown.tsx
 import { useState, useRef, useEffect } from "react";
 
-interface PersonaDropdownProps {
-  selectedPersona: string;
-  options: string[];
-  isEditing: boolean;
-  onSelect: (persona: string) => void;
+// 페르소나 타입 정의
+interface Persona {
+  id: number;
+  name: string;
 }
 
-const Dropdown = ({
+interface DropdownProps {
+  selectedPersona: Persona | null;
+  personas: Persona[];
+  isEditing: boolean;
+  onSelect: (personaId: number) => void;
+}
+
+function Dropdown({
   selectedPersona,
-  options,
+  personas,
   isEditing,
   onSelect,
-}: PersonaDropdownProps) => {
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
-        !(dropdownRef.current as HTMLElement).contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }
@@ -32,62 +39,69 @@ const Dropdown = ({
     };
   }, []);
 
-  const handleOptionSelect = (option: string) => {
-    onSelect(option);
+  const toggleDropdown = () => {
+    if (isEditing) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const handleSelect = (id: number) => {
+    onSelect(id);
     setIsOpen(false);
   };
 
   return (
-    <div className="relative h-10" ref={dropdownRef}>
-      <div className="min-w-[140px] h-10">
-        {isEditing ? (
-          <div className="absolute inset-0">
-            <div
-              className="rounded-lg  py-2 flex items-center justify-between cursor-pointer h-full"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {selectedPersona}
-              <svg
-                className={`w-4 h-4 ml-2 transition-transform ${
-                  isOpen ? "rotate-180" : ""
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                ></path>
-              </svg>
-            </div>
-            {isOpen && (
-              <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10">
-                {options.map((option) => (
-                  <div
-                    key={option}
-                    className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-                      selectedPersona === option ? "bg-gray-100" : ""
-                    }`}
-                    onClick={() => handleOptionSelect(option)}
-                  >
-                    {option}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="absolute inset-0 flex items-center">
-            <div className="text-base ">{selectedPersona}</div>
-          </div>
+    <div ref={dropdownRef} className="relative">
+      <div
+        className={`flex items-center justify-between px-3 py-2 border ${
+          isEditing
+            ? "border-coral-300 cursor-pointer"
+            : "border-transparent cursor-default"
+        } rounded-lg ${isOpen ? "bg-gray-50" : ""}`}
+        onClick={toggleDropdown}
+      >
+        <div className="font-medium">{selectedPersona?.name || ""}</div>
+        {isEditing && (
+          <svg
+            className={`w-4 h-4 ml-2 transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
         )}
       </div>
+
+      {isOpen && (
+        <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+          <ul className="py-1 max-h-60 overflow-auto">
+            {personas.map((persona) => (
+              <li
+                key={persona.id}
+                className={`px-3 py-2 cursor-pointer hover:bg-gray-50 ${
+                  persona.id === selectedPersona?.id
+                    ? "text-coral-600 font-medium"
+                    : ""
+                }`}
+                onClick={() => handleSelect(persona.id)}
+              >
+                {persona.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default Dropdown;
