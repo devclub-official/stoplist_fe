@@ -1,0 +1,13 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 일잘러 뱃지 -->
+  <circle cx="100" cy="100" r="90" fill="#FF7F50" />
+  <circle cx="100" cy="100" r="80" fill="#FF7F50" />
+  
+  <!-- 문서 아이콘 -->
+  <path d="M70,50 L130,50 L130,150 L70,150 Z" fill="#fff" />
+  <path d="M80,70 L120,70 M80,90 L120,90 M80,110 L120,110 M80,130 L100,130" stroke="#FF7F50" stroke-width="4" />
+  
+  <!-- 펜 아이콘 -->
+  <path d="M125,60 L140,75 L105,110 L90,95 Z" fill="#fff" stroke="#FF7F50" stroke-width="1" />
+  <path d="M90,95 L85,115 L105,110" fill="#fff" stroke="#FF7F50" stroke-width="1" />
+</svg>

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 개발자 뱃지 -->
+  <circle cx="100" cy="100" r="90" fill="#FF7F50" />
+  <circle cx="100" cy="100" r="80" fill="#FF7F50" />
+  <!-- 중앙에 배치된 코드 괄호 -->
+  <path d="M70,70 L45,100 L70,130 M130,70 L155,100 L130,130" stroke="#fff" stroke-width="8" fill="none" />
+</svg>
