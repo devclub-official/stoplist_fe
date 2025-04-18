@@ -44,6 +44,7 @@ function MyPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("personaId");
     navigate("/", { replace: true }); // 로그인 페이지로 이동
   };
 
