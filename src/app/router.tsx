@@ -7,22 +7,23 @@ const LoginPage = lazy(() => import("@/page/LoginPage"));
 const SignUpPage = lazy(() => import("@/page/SignUpPage"));
 const HomePage = lazy(() => import("@/page/HomePage"));
 const BadgePage = lazy(() => import("@/page/BadgePage"));
+const MyPage = lazy(() => import("@/page/MyPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
+    Component: () => <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/signup",
+    Component: () => <SignUpPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/",
     Component: App,
     children: [
-      {
-        index: true,
-        Component: () => <LoginPage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/signup",
-        Component: () => <SignUpPage />,
-        errorElement: <ErrorPage />,
-      },
       {
         path: "/home",
         Component: () => <HomePage />,
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/badges",
         Component: () => <BadgePage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/mypage",
+        Component: () => <MyPage />,
         errorElement: <ErrorPage />,
       },
     ],

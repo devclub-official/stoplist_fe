@@ -9,6 +9,7 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen">
+      <h1 className="pt-4 text-center text-coral-600">StopList</h1>
       <main className="flex-1 overflow-auto pb-16">
         <Outlet />
       </main>
