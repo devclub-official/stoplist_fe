@@ -10,7 +10,8 @@ const LoginPage = () => {
     const handleLogin = () => {
         axiosInstance.post('api/user/login',{nickname:id, password:password}).then(res => {
             if(res.status === 200) {
-                window.localStorage.setItem('userId', res.data.userId);
+                window.localStorage.setItem('userId', res.data.data.userId);
+                window.localStorage.setItem('personaId', res.data.data.personaId);
                 navigate('/home');
             } else {
                 alert(`${res.data.data}`);
