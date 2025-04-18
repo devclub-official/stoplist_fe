@@ -14,6 +14,11 @@ const SignUpPage = () => {
     const [personaList, setPersonaList] = useState<PersonaListType[]>([]);
     const navigate = useNavigate();
 
+    const handleToLogin = () => {
+        navigate('/login');
+
+    }
+
     const handleSignUp = () => {
         if (!id || !password || !selectedPersonaId) {
             alert('모든 항목을 입력해주세요.');
@@ -21,6 +26,12 @@ const SignUpPage = () => {
         }
         axiosInstance.post('api/user/signup',{nickname:id, password:password, personaId:selectedPersonaId}).then(res => {
             if(res.status === 200) {
+                if(res.data.status === 500) {
+                    setId('');
+                    setPassword('');
+                    alert(`${res.data.data}`);
+                    return;
+                }
                 console.log('res signup',res)
                 window.localStorage.setItem('userId', res.data.data.userId);
                 window.localStorage.setItem('personaId', res.data.data.personaId);
@@ -82,12 +93,17 @@ const SignUpPage = () => {
                         ))}
                     </div>
                 </div>
-
                 <button
                     onClick={handleSignUp}
                     className="mt-4 rounded-full bg-coral-600 py-3 text-white hover:bg-coral-700"
                 >
                     등록
+                </button>
+                <button
+                    onClick={handleToLogin}
+                    className="text-sm text-coral-400 hover:underline"
+                >
+                    로그인으로 가기
                 </button>
             </div>
         </div>
